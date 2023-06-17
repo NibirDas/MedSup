@@ -7,35 +7,43 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.content.Intent;
 
-public class MainActivity extends AppCompatActivity {
-
-    EditText username;
-    EditText password;
-    Button loginButton;
-
-
+public class MainActivity extends AppCompatActivity
+{
+    public Button button_dis, button_ret, button_cus;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        username = findViewById(R.id.username);
-        password = findViewById(R.id.password);
-        loginButton = findViewById(R.id.loginButton);
+        button_dis = (Button) findViewById(R.id.dis);
+        button_ret = (Button) findViewById(R.id.ret);
+        button_cus = (Button) findViewById(R.id.cus);
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
+        button_dis.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(username.getText().toString().equals("user") && password.getText().toString().equals("7777"))
-                {
-                    Toast.makeText(MainActivity.this,"Login Successful!", Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
-                    Toast.makeText(MainActivity.this,"Login Failed!", Toast.LENGTH_SHORT).show();
-                }
+                Intent intent = new Intent(MainActivity.this, Login.class);
+                startActivity(intent);
+            }
+        });
+
+        button_ret.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, Login.class);
+                startActivity(intent);
+            }
+        });
+
+        button_cus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, Login.class);
+                startActivity(intent);
             }
         });
 
