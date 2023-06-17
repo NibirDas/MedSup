@@ -2,50 +2,58 @@ package com.example.medsup;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
-import android.content.Intent;
+import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity
-{
-    public Button button_dis, button_ret, button_cus;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
+import org.w3c.dom.Text;
+
+public class MainActivity extends AppCompatActivity {
+
+    FirebaseAuth auth;
+    Button button;
+    TextView textView;
+    FirebaseUser user;
+
+
+    @SuppressLint("MissingInflatedId")
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        button_dis = (Button) findViewById(R.id.dis);
-        button_ret = (Button) findViewById(R.id.ret);
-        button_cus = (Button) findViewById(R.id.cus);
+        auth = FirebaseAuth.getInstance();
 
-        button_dis.setOnClickListener(new View.OnClickListener() {
+        button = findViewById(R.id.logout);
+        textView = findViewById(R.id.user_details);
+
+        user = auth.getCurrentUser();
+        if(user == null)
+        {
+            Intent intent = new Intent(MainActivity.this, Login.class);
+            startActivity(intent);
+            finish();
+        }
+
+        else {
+            textView.setText(user.getEmail());
+
+        }
+
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(MainActivity.this, Login.class);
                 startActivity(intent);
+                finish();
             }
         });
-
-        button_ret.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, Login.class);
-                startActivity(intent);
-            }
-        });
-
-        button_cus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, Login.class);
-                startActivity(intent);
-            }
-        });
-
     }
 }
